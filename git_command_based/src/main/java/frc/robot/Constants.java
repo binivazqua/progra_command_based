@@ -17,10 +17,10 @@ public final class Constants {
   public static class MotorIDS {
     public static final int neitoID = 5;
     public static final int neoteID = 6;
-    public static final int motorUnoIzqID = 1;
-    public static final int motorDosIzqID = 4;
-    public static final int motorUnoDerID = 2;
-    public static final int motorDosDerID = 3;
+    public static final int motorAdelanteIzqID = 8;
+    public static final int motorAtrasIzqID = 9;
+    public static final int motorAdelanteDerID = 7;
+    public static final int motorAtrasDerID = 10;
 
   }
 

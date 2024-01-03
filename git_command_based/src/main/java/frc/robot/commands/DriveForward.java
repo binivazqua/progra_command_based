@@ -24,6 +24,7 @@ public class DriveForward  extends CommandBase{
   @Override
   public void initialize() {
     System.out.println("Drive Forward Command Started!");
+    DriveSubsystem.resetEncoders();
   }
 
   // Called every time the scheduler runs while the command is scheduled.

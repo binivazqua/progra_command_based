@@ -31,7 +31,8 @@ public class TankCommand  extends CommandBase{
   @Override
   public void initialize() {
     System.out.println("Tank Subsystem Started!");
-    m_DriveSubsystem.resetEncoders();
+    m_DriveSubsystem.resetYaw();
+    DriveSubsystem.resetEncoders();
     m_DriveSubsystem.inTankDrive(); // --> jala?
 
   }

@@ -23,21 +23,21 @@ import frc.robot.RobotContainer;
 public class DriveSubsystem extends SubsystemBase {
   /** Creates a new ExampleSubsystem. */
   // DECLARAR TODOS LOS COMPONENTES:
-  static WPI_TalonSRX motorAtrasIzquierdp = new WPI_TalonSRX(Constants.MotorIDS.motorUnoIzqID);
-  static WPI_VictorSPX motorAdelanteIzquierdo = new WPI_VictorSPX(Constants.MotorIDS.motorUnoDerID);
+  static WPI_TalonSRX motorAtrasIzquierdo = new WPI_TalonSRX(Constants.MotorIDS.motorAtrasIzqID);
+  static WPI_VictorSPX motorAdelanteIzquierdo = new WPI_VictorSPX(Constants.MotorIDS.motorAdelanteIzqID);
 
-  static WPI_TalonSRX motorAtrasDerecho = new WPI_TalonSRX(Constants.MotorIDS.motorDosIzqID);
-  static WPI_VictorSPX motorAdelanteDerecho = new WPI_VictorSPX(Constants.MotorIDS.motorDosDerID);
+  static WPI_TalonSRX motorAtrasDerecho = new WPI_TalonSRX(Constants.MotorIDS.motorAtrasDerID);
+  static WPI_VictorSPX motorAdelanteDerecho = new WPI_VictorSPX(Constants.MotorIDS.motorAdelanteDerID);
 
   
   AHRS navX = new AHRS(SPI.Port.kMXP);
 
   static MotorControllerGroup der = new MotorControllerGroup(motorAdelanteDerecho, motorAtrasDerecho);
-  static MotorControllerGroup izq = new MotorControllerGroup(motorAdelanteIzquierdo, motorAtrasIzquierdp);
+  static MotorControllerGroup izq = new MotorControllerGroup(motorAdelanteIzquierdo, motorAtrasIzquierdo);
 
   static DifferentialDrive chassis = new DifferentialDrive(izq, der);
 
-  Encoder boreEncoder = new Encoder(Constants.DeviceChannels.kboreEncoderChannelA, Constants.DeviceChannels.kboreEncoderChannelB);
+  static Encoder boreEncoder = new Encoder(Constants.DeviceChannels.kboreEncoderChannelA, Constants.DeviceChannels.kboreEncoderChannelB);
 
 
   // variables factor de conversion Encoder.
@@ -52,6 +52,7 @@ public class DriveSubsystem extends SubsystemBase {
     // ENCODERS:
     boreEncoder.setDistancePerPulse((Math.PI * diametroLlantaMetros) / CountsPerRev);
     resetEncoders(); // --> funcion void.
+    resetYaw();
 
   }
 
@@ -106,14 +107,31 @@ public class DriveSubsystem extends SubsystemBase {
     
   }
 
-  public void resetEncoders() {
+  public static void resetEncoders() {
     boreEncoder.reset();
+  }
+
+  public void resetYaw () {
+    navX.reset();
+  }
+
+  public float getYaw() {
+    return navX.getYaw();
   }
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
     // IMPRIMIR VALORES EN LA SHUFFLE BOARD
     SmartDashboard.putNumber("Distance meters bore Encoder:", getDistanceBore());
+    SmartDashboard.putNumber("Giro Roll", navX.getRoll());
+    SmartDashboard.putNumber("Naricita Pitch", navX.getPitch());
+    SmartDashboard.putNumber("Fiun Yaw", navX.getYaw());
+    SmartDashboard.putNumber("Angle NavX", navX.getAngle());
+
+    SmartDashboard.putNumber("Extra Angle Adjustment", navX.getAngleAdjustment());
+    SmartDashboard.putNumber("Extra Yaw Displacement", navX.getDisplacementX());
+
+
   }
 
   @Override
