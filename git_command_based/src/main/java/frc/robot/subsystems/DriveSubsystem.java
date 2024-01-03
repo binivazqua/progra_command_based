@@ -23,16 +23,17 @@ import frc.robot.RobotContainer;
 public class DriveSubsystem extends SubsystemBase {
   /** Creates a new ExampleSubsystem. */
   // DECLARAR TODOS LOS COMPONENTES:
-  static WPI_TalonSRX motor1 = new WPI_TalonSRX(Constants.MotorIDS.motorUnoIzqID);
-  static WPI_TalonSRX motor2 = new WPI_TalonSRX(Constants.MotorIDS.motorUnoDerID);
-  static WPI_VictorSPX motor3 = new WPI_VictorSPX(Constants.MotorIDS.motorDosIzqID);
-  static WPI_VictorSPX motor4 = new WPI_VictorSPX(Constants.MotorIDS.motorDosDerID);
+  static WPI_TalonSRX motorAtrasIzquierdp = new WPI_TalonSRX(Constants.MotorIDS.motorUnoIzqID);
+  static WPI_VictorSPX motorAdelanteIzquierdo = new WPI_VictorSPX(Constants.MotorIDS.motorUnoDerID);
+
+  static WPI_TalonSRX motorAtrasDerecho = new WPI_TalonSRX(Constants.MotorIDS.motorDosIzqID);
+  static WPI_VictorSPX motorAdelanteDerecho = new WPI_VictorSPX(Constants.MotorIDS.motorDosDerID);
 
   
   AHRS navX = new AHRS(SPI.Port.kMXP);
 
-  static MotorControllerGroup der = new MotorControllerGroup(motor2, motor4);
-  static MotorControllerGroup izq = new MotorControllerGroup(motor1, motor3);
+  static MotorControllerGroup der = new MotorControllerGroup(motorAdelanteDerecho, motorAtrasDerecho);
+  static MotorControllerGroup izq = new MotorControllerGroup(motorAdelanteIzquierdo, motorAtrasIzquierdp);
 
   static DifferentialDrive chassis = new DifferentialDrive(izq, der);
 

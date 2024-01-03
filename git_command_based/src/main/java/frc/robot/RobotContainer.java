@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandGenericHID;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.commands.ArcadeCommand;
 import frc.robot.commands.NeitoCommand;
 import frc.robot.commands.NeoteCommand;
 import frc.robot.commands.TankCommand;
@@ -51,10 +52,21 @@ public class RobotContainer {
 
     triangle.whileTrue(new NeoteCommand(0.5));
     cross.whileTrue(new NeoteCommand(-0.5));
+
+    /* arcade-command shift */
+    backLeft.toggleOnTrue(new ArcadeCommand(() -> control.getRawAxis(1) * 0.5, () -> control.getRawAxis(4) * 0.5));
+
+    // Acelerador:
+    backRight.toggleOnTrue(new TankCommand(() -> control.getRawAxis(1) * 0.6, () -> control.getRawAxis(5) * 0.6));
+      
+    // Acelerador Arcade:
+    backDownLeft.toggleOnTrue(new ArcadeCommand(() -> control.getRawAxis(1) * 0.6, () -> control.getRawAxis(4) * 0.6));
     
+
+
   }
 
   public Command getAutonomousCommand() {
-    return Commands.print("No autonomous command configured");
+    return null;
   }
 }
