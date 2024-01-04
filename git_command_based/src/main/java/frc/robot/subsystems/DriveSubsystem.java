@@ -48,7 +48,7 @@ public class DriveSubsystem extends SubsystemBase {
   public DriveSubsystem() {
 
     // tunear todo:
-    izq.setInverted(true);
+    der.setInverted(true); // para no invertir velocidades (-). Ahora el lado izquierdo adelante es positivo, y el lado derecho adelante es positivo.
     // ENCODERS:
     boreEncoder.setDistancePerPulse((Math.PI * diametroLlantaMetros) / CountsPerRev);
     resetEncoders(); // --> funcion void.
@@ -115,7 +115,7 @@ public class DriveSubsystem extends SubsystemBase {
     navX.reset();
   }
 
-  public float getYaw() {
+  public double getYaw() {
     return navX.getYaw();
   }
   @Override

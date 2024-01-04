@@ -10,26 +10,44 @@ public class ComplexAuto extends SequentialCommandGroup {
 
     public ComplexAuto() {
 
+        // Cuando no reseteas los encoders en el comando
 
+          /* Los setpoints de distancia son acumulativos, es decir
+        que si quiero que el chasis avance 2 metros en dos momentos, 
+        puedo mandarle que avance 1 metro y después 2 metros. Si le mando
+        1 metro y después 1 metro, se va a buggear pensando que esa distancia 
+        ya la recorrió y no iniciará el comando.
+          */
+
+        /*  
         addCommands(    
             new DriveForward(1.2), // --> avanza 1.2m
             new NeitoPID(10), // --> gira 10 veces
             
             new ParallelCommandGroup(
-                new DriveForward(2.2), new NeitoPID(5) // avanza otro metro.
+                new DriveForward(2.2), new NeitoPID(5) // avanza otro metro
             ),
 
             new DriveForward(3.2) // avanza otro metro.
 
         );  
 
-        /* no jsló */
-    /* Los setpoints de distancia son acumulativos, es decir
-        que si quiero que el chasis avance 2 metros en dos momentos, 
-        puedo mandarle que avance 1 metro y después 2 metros. Si le mando
-        1 metro y después 1 metro, se va a buggear pensando que esa distancia 
-        ya la recorrió y no iniciará el comando.
-     */
+        */
+        addCommands(    
+            new DriveForward(1.2), // --> avanza 1.2m
+            new NeitoPID(10), // --> gira 10 veces
+            
+            new ParallelCommandGroup(
+                new DriveForward(1.0), new NeitoPID(5) // avanza otro metro
+            ),
+
+            new DriveForward(1.0) // avanza otro metro.
+
+        );  
+        
+
+    
+  
     }
 
 

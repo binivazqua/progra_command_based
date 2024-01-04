@@ -30,7 +30,7 @@ public class DriveForward  extends CommandBase{
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    DriveSubsystem.tankDrive(-0.4, -0.4); // --> le pones directo los valores de la velocidad.
+    DriveSubsystem.tankDrive(0.4, 0.4); // --> le pones directo los valores de la velocidad.
     SmartDashboard.putBoolean("Drive FWD", isFinished());
   }
 

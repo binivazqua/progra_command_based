@@ -41,9 +41,15 @@ public final class Constants {
   public static class OperatorConstants {
     public static final int kControlPort = 0;
     public static final int kTankFwdAxis = 5;
-    public static final int kArcadeTurnAxis = 4;
+    public static final int kArcadeTurnAxis = 2;
     public static final int kFwdAxis = 1;
     public static final double kBackLeftThreshold = 0.4;
+    public static final int ktrianglebutton = 4;
+    public static final int ksquarebutton = 1;
+    public static final int kcirclebutton = 3;
+    public static final int kcrossbutton = 2;
+
+
 
 
   }

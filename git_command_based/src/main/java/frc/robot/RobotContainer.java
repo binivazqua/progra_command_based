@@ -8,12 +8,14 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandGenericHID;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.ArcadeCommand;
 import frc.robot.commands.ComplexAuto;
 import frc.robot.commands.NeitoCommand;
 import frc.robot.commands.NeoteCommand;
 import frc.robot.commands.TankCommand;
 import frc.robot.commands.Turning;
+import frc.robot.commands.TurningAuto;
 import frc.robot.subsystems.DriveSubsystem;
 
 public class RobotContainer {
@@ -22,13 +24,13 @@ public class RobotContainer {
   private final DriveSubsystem chassis;
   public CommandGenericHID control = new CommandGenericHID(Constants.OperatorConstants.kControlPort);
 
-  Trigger square = control.button(3);
-  Trigger circle = control.button(4);
-  Trigger triangle = control.button(1);
-  Trigger cross = control.button(2);
+  Trigger square = control.button(Constants.OperatorConstants.ksquarebutton);
+  Trigger circle = control.button(OperatorConstants.kcirclebutton);
+  Trigger triangle = control.button(OperatorConstants.ktrianglebutton);
+  Trigger cross = control.button(OperatorConstants.kcrossbutton);
   Trigger backLeft = control.button(5);
   Trigger backRight = control.button(6);
-  Trigger backDownLeft = control.axisGreaterThan(2, 0.1);
+  Trigger backDownLeft = control.axisGreaterThan(3, 0.1);
 
 
 
@@ -41,9 +43,11 @@ public class RobotContainer {
 
     /* Set deffault commands */
     chassis.setDefaultCommand(
-      new TankCommand(() -> control.getRawAxis(1) * 0.6, () -> control.getRawAxis(5) * 0.6)
+      new TankCommand(() -> control.getRawAxis(Constants.OperatorConstants.kFwdAxis) * -0.6, () -> control.getRawAxis(Constants.OperatorConstants.kTankFwdAxis) * -0.6)
     );
     configureBindings();
+
+    /* La velocidad ahora es NEGATIVA pq ahora invertimos el motor derecho.  */
   }
 
   private void configureBindings() {
@@ -56,19 +60,20 @@ public class RobotContainer {
     cross.whileTrue(new NeoteCommand(-0.5));
 
     /* arcade-command shift */
-    backLeft.toggleOnTrue(new ArcadeCommand(() -> control.getRawAxis(1) * 0.6, () -> control.getRawAxis(4) * 0.6));
+    backLeft.toggleOnTrue(new ArcadeCommand(() -> control.getRawAxis(Constants.OperatorConstants.kFwdAxis) * -0.6, () -> control.getRawAxis(Constants.OperatorConstants.kArcadeTurnAxis) * -0.6));
 
     // Acelerador:
-    backRight.toggleOnTrue(new TankCommand(() -> control.getRawAxis(1) * 0.7, () -> control.getRawAxis(5) * 0.7));
+    backRight.toggleOnTrue(new TankCommand(() -> control.getRawAxis(Constants.OperatorConstants.kFwdAxis) * 0.7, () -> control.getRawAxis(Constants.OperatorConstants.kTankFwdAxis) * 0.7));
       
     // Acelerador Arcade:
-    backDownLeft.toggleOnTrue(new ArcadeCommand(() -> control.getRawAxis(1) * 0.7, () -> control.getRawAxis(4) * 0.7));
+    backDownLeft.toggleOnTrue(new ArcadeCommand(() -> control.getRawAxis(Constants.OperatorConstants.kFwdAxis) * 0.7, () -> control.getRawAxis(Constants.OperatorConstants.kTankFwdAxis) * 0.7));
     
 
 
   }
 
   public Command getAutonomousCommand() {
-    return new Turning(90, true);
+    //return new Turning(90, false);
+    return new TurningAuto();
   }
 }
